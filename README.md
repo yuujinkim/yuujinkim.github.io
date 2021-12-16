@@ -1,134 +1,132 @@
-# Lanyon
+# [yuujinkim.github.io](https://yuujinkim.github.io/)
 
-Lanyon is an unassuming [Jekyll](http://jekyllrb.com) theme that places content first by tucking away navigation in a hidden drawer. It's based on [Poole](http://getpoole.com), the Jekyll butler.
+<br/>
 
-![Lanyon](https://f.cloud.github.com/assets/98681/1825266/be03f014-71b0-11e3-9539-876e61530e24.png)
-![Lanyon with open sidebar](https://f.cloud.github.com/assets/98681/1825267/be04a914-71b0-11e3-966f-8afe9894c729.png)
+## Build 과정
+### 1. Repository 생성
+Github에서 \<username>.github.io 이름의 Repository 생성
 
+### 2. Local-Remote Repository 연동
+Remote Repository의 주소를 복사한 후  
+`git clone <복사한 Remote Repository의 주소> <path>`로 clone
 
-## Contents
+### 3. Jekyll 설치
+[Windows용 Jekyll 가이드 참조](https://jekyllrb-ko.github.io/docs/installation/windows/)
 
-- [Usage](#usage)
-- [Options](#options)
-  - [Sidebar menu](#sidebar-menu)
-  - [Themes](#themes)
-  - [Reverse layout](#reverse-layout)
-- [Development](#development)
-- [Author](#author)
-- [License](#license)
+[Windows용 Ruby + Devkit](https://rubyinstaller.org/downloads/)  
+위의 링크를 통해 Ruby 설치
 
+Jekyll과 Bundler를 설치  
+`gem install jekyll bundler`
 
-## Usage
+Jekyll이 올바르게 설치되었는지 확인  
+`jekyll -v`
 
-Lanyon is a theme built on top of [Poole](https://github.com/poole/poole), which provides a fully furnished Jekyll setup—just download and start the Jekyll server. See [the Poole usage guidelines](https://github.com/poole/poole#usage) for how to install and use Jekyll.
+### 4. Jekyll 사이트 생성
+현재 디렉토리(.)에 Jekyll을 설치
+`jekyll new . --force`
 
+Jekyll 시작하기  
+`bundle exec jekyll serve` 을 실행 후,  
+localhost:4000 접속
 
-## Options
+* LoadError 발생 시 webrick 파일 설치
+`bundle add webtick`
 
-Lanyon includes some customizable options, typically applied via classes on the `<body>` element.
+### 5. 테마 적용하기
+[다음](http://jekyllthemes.org/)에서 원하는 테마 선택
 
+[원하는 테마](https://github.com/poole/lanyon)를 git clone해서 로컬에 받아오기
 
-### Sidebar menu
+테마 파일들을 로컬 저장소에 반영하기  
+이때, 의존성을 감안하여 _posts를 제외하고 테마를 덮어쓰기
 
-Create a list of nav links in the sidebar by assigning each Jekyll page the correct layout in the page's [front-matter](http://jekyllrb.com/docs/frontmatter/).
-
+### 5. Customize
+블로그 포스팅은 ___posts__ 폴더에서 진행  
+_post에 __YYYY-MM-DD-TITLE.md__ 형태로 새로운 문서를 작성
 ```
 ---
-layout: page
-title: About
+layout: post
+title: "제목"
 ---
 ```
+위와 같은 형식으로 Post 문서를 작성  
+Markdown 형식을 통해 내용 작성
 
-**Why require a specific layout?** Jekyll will return *all* pages, including the `atom.xml`, and with an alphabetical sort order. To ensure the first link is *Home*, we exclude the `index.html` page from this list by specifying the `page` layout.
+_config.yml의 title과 tagline, url 수정  
+description 등 불필요한 부분 삭제
 
+_includes/sidebar.html에서 사이드바 수정
 
-### Themes
+public/favicon.ico으로 favicon 적용
 
-Lanyon ships with eight optional themes based on the [base16 color scheme](https://github.com/chriskempson/base16). Apply a theme to change the color scheme (mostly applies to sidebar and links).
+### 6. 댓글 기능 추가
+[Disqus](https://disqus.com) 가입  
+"I want to install Disqus on my site" 선택  
+사이트 정보 입력 (Website Name 기억해두기) - Category는 Tech 선택  
+Platform 중 Jekyll 선택  
+Configure를 눌러 Website Name에 아까 기억해 두었던 이름(yuujinkim)과 Website URL에 사이트 주소(https://yuujinkim.github.io) 입력  
+Comment 정책 선택 (Balanced와 Strict 중 나는 Balanced 선택함)  
+Complete Setup을 눌러 설정 마무리
 
-![Lanyon with red theme](https://f.cloud.github.com/assets/98681/1825270/be065110-71b0-11e3-9ed8-9b8de753a4af.png)
-![Lanyon with red theme and open sidebar](https://f.cloud.github.com/assets/98681/1825269/be05ec20-71b0-11e3-91ea-a9138ef07186.png)
-
-There are eight themes available at this time.
-
-![Available theme classes](https://f.cloud.github.com/assets/98681/1817044/e5b0ec06-6f68-11e3-83d7-acd1942797a1.png)
-
-To use a theme, add any one of the available theme classes to the `<body>` element in the `default.html` layout, like so:
-
-```html
-<body class="theme-base-08">
-  ...
-</body>
+_config.yml에 다음과 같은 key-value 추가
+```
+# Custom vars
+version: 1.1.0
+google_analytics_id: #UA-XXXX-Y
+comment:
+  provider: "disqus"
+  disqus:
+    shortname: "yuujinkim"
 ```
 
-To create your own theme, look to the Themes section of [included CSS file](https://github.com/poole/lanyon/blob/master/public/css/lanyon.css). Copy any existing theme (they're only a few lines of CSS), rename it, and change the provided colors.
-
-
-### Reverse layout
-
-![Lanyon with reverse layout](https://f.cloud.github.com/assets/98681/1825265/be03f2e4-71b0-11e3-89f1-360705524495.png)
-![Lanyon with reverse layout and open sidebar](https://f.cloud.github.com/assets/98681/1825268/be056174-71b0-11e3-88c8-5055bca4307f.png)
-
-Reverse the page orientation with a single class.
-
-```html
-<body class="layout-reverse">
-  ...
-</body>
+_layout/post.html을 페이지에 맞게 수정
+```
+{% if page.comments %}
+<h2>Comments</h2>
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    let PAGE_URL = "{{site.url}}{{page.url}}"
+    let PAGE_IDENTIFIER = "{{page.url}}"
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://yuujinkim.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+{% endif %}
 ```
 
+댓글을 허용하고 싶은 곳에 `comments: true`로 지정
 
-### Sidebar overlay instead of push
+### 7. Personal Access Token(PAT) 생성하기
+github-Setting-Developer settings-Personal access tokens-Generate new token  
+Note(토큰 메모), Expiration(유효기간), Scope(권한 범위) 결정 후 생성  
 
-Make the sidebar overlap the viewport content with a single class:
+토큰은 다시 볼 수 없으니 잘 기억해두기
 
-```html
-<body class="sidebar-overlay">
-  ...
-</body>
-```
+### 8. Github Page 시작하기
+파일 스테이징 `git add <파일명>`
 
-This will keep the content stationary and slide in the sidebar over the side content. It also adds a `box-shadow` based outline to the toggle for contrast against backgrounds, as well as a `box-shadow` on the sidebar for depth.
+파일 커밋 `git commit -m "<커밋 메시지>"`
 
-It's also available for a reversed layout when you add both classes:
+현재 branch의 이름을 main으로 변경 `git branch -M main`
 
-```html
-<body class="layout-reverse sidebar-overlay">
-  ...
-</body>
-```
+원격 저장소에 반영 `git push origin main`
 
-### Sidebar open on page load
+Password에 PAT을 입력
 
-Show an open sidebar on page load by modifying the `<input>` tag within the `sidebar.html` layout to add the `checked` boolean attribute:
+### 8. 원격에서 깨지는 문제 해결
+localhost:4000에서는 잘 나오는데 [원격](https://yuujinkim.github.io/)에서는 내용이 깨져서 나오는 문제 발생
 
-```html
-<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
-```
-
-Using Liquid you can also conditionally show the sidebar open on a per-page basis. For example, here's how you could have it open on the homepage only:
-
-```html
-<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" {% if page.title =="Home" %}checked{% endif %}>
-```
-
-## Development
-
-Lanyon has two branches, but only one is used for active development.
-
-- `master` for development.  **All pull requests should be to submitted against `master`.**
-- `gh-pages` for our hosted site, which includes our analytics tracking code. **Please avoid using this branch.**
-
-
-## Author
-
-**Mark Otto**
-- <https://github.com/mdo>
-- <https://twitter.com/mdo>
-
-
-## License
-
-Open sourced under the [MIT license](LICENSE.md).
-
-<3
+_config.yml에서 baseurl 삭제  
+url은 https://yuujinkim.github.io/ 로 수정
