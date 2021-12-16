@@ -41,7 +41,7 @@ localhost:4000 접속
 테마 파일들을 로컬 저장소에 반영하기  
 이때, 의존성을 감안하여 _posts를 제외하고 테마를 덮어쓰기
 
-### 5. Customize
+### 6. Customize
 블로그 포스팅은 ___posts__ 폴더에서 진행  
 _post에 __YYYY-MM-DD-TITLE.md__ 형태로 새로운 문서를 작성
 ```
@@ -58,9 +58,7 @@ description 등 불필요한 부분 삭제
 
 _includes/sidebar.html에서 사이드바 수정
 
-public/favicon.ico으로 favicon 적용
-
-### 6. 댓글 기능 추가
+### 7. 댓글 기능 추가
 [Disqus](https://disqus.com) 가입  
 "I want to install Disqus on my site" 선택  
 사이트 정보 입력 (Website Name 기억해두기) - Category는 Tech 선택  
@@ -108,13 +106,13 @@ _layout/post.html을 페이지에 맞게 수정
 
 댓글을 허용하고 싶은 곳에 `comments: true`로 지정
 
-### 7. Personal Access Token(PAT) 생성하기
+### 8. Personal Access Token(PAT) 생성하기
 github-Setting-Developer settings-Personal access tokens-Generate new token  
 Note(토큰 메모), Expiration(유효기간), Scope(권한 범위) 결정 후 생성  
 
 토큰은 다시 볼 수 없으니 잘 기억해두기
 
-### 8. Github Page 시작하기
+### 9. Github Page 시작하기
 파일 스테이징 `git add <파일명>`
 
 파일 커밋 `git commit -m "<커밋 메시지>"`
@@ -125,8 +123,30 @@ Note(토큰 메모), Expiration(유효기간), Scope(권한 범위) 결정 후 �
 
 Password에 PAT을 입력
 
-### 8. 원격에서 깨지는 문제 해결
+### 10. 원격에서 깨지는 문제 해결
 localhost:4000에서는 잘 나오는데 [원격](https://yuujinkim.github.io/)에서는 내용이 깨져서 나오는 문제 발생
 
 _config.yml에서 baseurl 삭제  
 url은 https://yuujinkim.github.io/ 로 수정
+
+### 11. jekyll-admin
+Gemfile에 추가
+`gem 'jekyll-admin', group: :jekyll_plugins`
+
+plugin 설치
+`bundle install`
+
+jekyll 실행 `bundle exec jekyll serve`
+
+localhost:4000/admin 접속
+
+![jekyll-admin](https://user-images.githubusercontent.com/66306573/146342490-e3eff6bc-7379-4273-aa1e-140403eb28c6.PNG)
+
+### 12. 사이트에 favicon 추가
+**파비콘(favicon)이란?**　　![](https://user-images.githubusercontent.com/66306573/146344595-f8a0b2a2-46e1-4adc-861a-aa1c94644b2e.PNG)
+> 즐겨찾기 아이콘. 즐겨찾기(favorites)와 아이콘(icon)의 합성어로, 주소창에 조그만 아이콘으로 표시
+
+[favicon 변환 사이트](https://www.favicon-generator.org/)에서 원하는 이미지를 아이콘(.ico) 형식으로 변경
+
+이름을 favicon.ico로 만든 후  
+public/favicon.ico에 저장하여 favicon 적용
